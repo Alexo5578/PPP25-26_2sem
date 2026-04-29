@@ -1,4 +1,3 @@
-
 import math
 from itertools import islice, count, chain
 from functools import reduce, wraps
@@ -64,6 +63,7 @@ def gen_triangle(side=2, step=4):
             (x + side, 0),
             (x + side / 2, h),
         )
+ 
 def gen_hexagon(side=1, step=4):
     for i in count(0):
         cx = i * step
@@ -112,8 +112,9 @@ def tr_homothety(poly, k=1.0, center=(0, 0)):
 def flt_convex_polygon(poly):
     n = len(poly)
     if n < 3:
-        return False    
-def cross(o, a, b):
+        return False
+ 
+    def cross(o, a, b):
         return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
  
     signs = []
@@ -170,7 +171,7 @@ def decorator_transform(transform_func, *t_args, **t_kwargs):
         return wrapper
  
     return outer
-
+ 
 flt_square_dec = lambda max_area_value: decorator_filter(flt_square, max_area_value)
 flt_short_side_dec = lambda max_len: decorator_filter(flt_short_side, max_len)
 tr_translate_dec = lambda dx, dy: decorator_transform(tr_translate, dx, dy)
@@ -216,8 +217,8 @@ def make_strip(generator_func, n=7, dx=0, dy=0, angle=0):
  
 if __name__ == "__main__":
     rects = list(islice(gen_rectangle(width=2, height=1, step=3), 7))
-    tris = list(islice(gen_triangle(side=2, step=3), 7))    
-hexs = list(islice(gen_hexagon(side=1, step=3.2), 7))
+    tris = list(islice(gen_triangle(side=2, step=3), 7))
+    hexs = list(islice(gen_hexagon(side=1, step=3.2), 7))
  
     visualize(rects, "7 прямоугольников")
     visualize(tris, "7 треугольников")
